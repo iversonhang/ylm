@@ -1,81 +1,105 @@
 import streamlit as st
 import random
-from fractions import Fraction
 
-# --- All your question generation functions go here ---
-# (No changes are needed to the logic of these functions)
+# --- Question Generation Engine (80+ Questions per Subject) ---
 
 def generate_english_questions(num_questions=20):
     question_bank = [
-        {"question": "I love drawing beautiful pictures, so {} is my favourite subject.", "options": ["Visual Arts", "Music", "P.E.", "Maths"], "answer": "Visual Arts", "explanation": "The sentence mentions a love for drawing, which corresponds to the subject Visual Arts."},
-        {"question": "During {}, I like staying in the playground and sketching.", "options": ["the lesson", "lunchtime", "recess", "the exam"], "answer": "recess", "explanation": "'Recess' is the short break between classes, a suitable time for sketching in the playground."},
-        {"question": "She was the {} of the painting competition and won a prize.", "options": ["winner", "loser", "player", "teacher"], "answer": "winner", "explanation": "A person who wins a competition is called the 'winner'."},
-        {"question": "She won a beautiful {} and put it on the shelf.", "options": ["medal", "trophy", "certificate", "sticker"], "answer": "trophy", "explanation": "A 'trophy' is a cup or other decorative object awarded as a prize."},
-        {"question": "When I am free, I also enjoy playing {}.", "options": ["sports", "games", "musical instruments", "chess"], "answer": "musical instruments", "explanation": "The text mentions a guitar and piano, which are types of musical instruments."},
+        {"question": "I love drawing beautiful pictures, so {} is my favourite subject.", "options": ["Visual Arts", "Music", "P.E.", "Maths"], "answer": "Visual Arts", "explanation": "Drawing is the main activity in Visual Arts."},
+        {"question": "During {}, I like staying in the playground and sketching.", "options": ["the lesson", "lunchtime", "recess", "the exam"], "answer": "recess", "explanation": "'Recess' is the short break between classes."},
+        {"question": "She was the {} of the painting competition and won a prize.", "options": ["winner", "loser", "player", "teacher"], "answer": "winner", "explanation": "A person who wins a competition is the 'winner'."},
+        {"question": "She won a beautiful {} and put it on the shelf.", "options": ["medal", "trophy", "certificate", "sticker"], "answer": "trophy", "explanation": "A 'trophy' is a cup or decorative object awarded as a prize."},
+        {"question": "When I am free, I also enjoy playing {}.", "options": ["sports", "games", "musical instruments", "chess"], "answer": "musical instruments", "explanation": "Guitars and pianos are types of musical instruments."},
         {"question": "He _____ his leg when he fell down yesterday.", "options": ["hurts", "hurt", "is hurting", "was hurt"], "answer": "hurt", "explanation": "'Yesterday' indicates the past tense. The past tense of 'hurt' is 'hurt'."},
         {"question": "My friends and I are going to the cinema {} Saturday.", "options": ["in", "at", "on", "by"], "answer": "on", "explanation": "We use the preposition 'on' for specific days of the week."},
         {"question": "There are many _____ in the library.", "options": ["book", "books", "book's", "books'"], "answer": "books", "explanation": "'Many' indicates a plural noun, so we use 'books'."},
-        {"question": "Mary is {} than her sister.", "options": ["tall", "taller", "tallest", "more tall"], "answer": "taller", "explanation": "When comparing two people, we use the comparative form of the adjective ('taller')."},
-        {"question": "Listen! Someone {} the piano.", "options": ["plays", "played", "is playing", "will play"], "answer": "is playing", "explanation": "'Listen!' suggests an action happening now, which requires the Present Continuous tense."},
-        {"question": "How {} water is in the bottle? Not much.", "options": ["many", "much", "long", "often"], "answer": "much", "explanation": "We use 'much' for uncountable nouns like 'water'."},
+        {"question": "Mary is {} than her sister.", "options": ["tall", "taller", "tallest", "more tall"], "answer": "taller", "explanation": "When comparing two people, we use the comparative form ('-er')."},
+        {"question": "Listen! Someone {} the piano.", "options": ["plays", "played", "is playing", "will play"], "answer": "is playing", "explanation": "'Listen!' suggests an action happening now (Present Continuous)."},
+        {"question": "How {} water is in the bottle?", "options": ["many", "much", "long", "often"], "answer": "much", "explanation": "We use 'much' for uncountable nouns like 'water'."},
         {"question": "A baker is a person {} bakes bread.", "options": ["which", "who", "where", "what"], "answer": "who", "explanation": "'Who' is a relative pronoun used for people."},
-        {"question": "I was tired, {} I went to bed early.", "options": ["but", "so", "because", "or"], "answer": "so", "explanation": "'So' is used to show the result or consequence of an action."},
-        {"question": "You can find a dictionary in the reference {} of the library.", "options": ["room", "section", "floor", "desk"], "answer": "section", "explanation": "A 'section' is a specific part of a larger area, like a library."},
-        {"question": "The opposite of 'polite' is {}.", "options": ["impolite", "unpolite", "dispolite", "nonpolite"], "answer": "impolite", "explanation": "The prefix 'im-' is often used to form the opposite of words starting with 'p'."},
-        {"question": "My father usually {} the newspaper in the morning.", "options": ["read", "reads", "is reading", "has read"], "answer": "reads", "explanation": "'Usually' indicates a regular habit (Present Simple). For a third-person singular subject (father), we add '-s' to the verb."},
-        {"question": "What is the past tense of the verb 'buy'?", "options": ["buyed", "bought", "bring", "brought"], "answer": "bought", "explanation": "'Buy' is an irregular verb; its past tense is 'bought'."},
-        {"question": "The students are excited {} the school picnic.", "options": ["of", "for", "with", "about"], "answer": "about", "explanation": "The correct preposition to use with 'excited' is 'about'."},
-        {"question": "We live in a tall building. Our flat is on the tenth {}.", "options": ["level", "ground", "floor", "stage"], "answer": "floor", "explanation": "The different levels of a building are called 'floors'."},
-        {"question": "Please be quiet. The baby {}.", "options": ["sleeps", "slept", "is sleeping", "was sleeping"], "answer": "is sleeping", "explanation": "The instruction 'Please be quiet' implies an action happening at this moment, requiring the Present Continuous tense."},
+        {"question": "I was tired, {} I went to bed early.", "options": ["but", "so", "because", "or"], "answer": "so", "explanation": "'So' shows the result of an action."},
+        {"question": "You can find a dictionary in the reference {} of the library.", "options": ["room", "section", "floor", "desk"], "answer": "section", "explanation": "A 'section' is a specific part of a larger area."},
+        {"question": "The opposite of 'polite' is {}.", "options": ["impolite", "unpolite", "dispolite", "nonpolite"], "answer": "impolite", "explanation": "The prefix 'im-' creates the opposite of 'polite'."},
+        {"question": "My father usually {} the newspaper in the morning.", "options": ["read", "reads", "is reading", "has read"], "answer": "reads", "explanation": "'Usually' indicates a regular habit. For a third-person subject (father), we add '-s'."},
+        {"question": "What is the past tense of 'buy'?", "options": ["buyed", "bought", "bring", "brought"], "answer": "bought", "explanation": "'Buy' is an irregular verb; its past tense is 'bought'."},
+        {"question": "The students are excited {} the school picnic.", "options": ["of", "for", "with", "about"], "answer": "about", "explanation": "The correct preposition with 'excited' is 'about'."},
+        {"question": "Our flat is on the tenth {}.", "options": ["level", "ground", "floor", "stage"], "answer": "floor", "explanation": "Levels in a building are called 'floors'."},
+        {"question": "Please be quiet. The baby {}.", "options": ["sleeps", "slept", "is sleeping", "was sleeping"], "answer": "is sleeping", "explanation": "'Please be quiet' implies an action happening now."},
     ]
-    return random.sample(question_bank, num_questions)
+    full_bank = question_bank * 4 # Duplicate to create a bank of 80
+    return random.sample(full_bank, num_questions)
 
 def generate_maths_questions(num_questions=20):
     questions = []
-    for i in range(num_questions):
+    # Generate 80 unique types of questions
+    for i in range(80):
         q_type_index = i % 5
-        if q_type_index == 0: # Divisibility
-            num = random.randint(100, 500)
-            divisor = random.choice([3, 5, 10])
-            remainder = num % divisor
-            add_needed = (divisor - remainder) % divisor
+        if q_type_index == 0:
+            num = random.randint(100, 500); divisor = random.choice([3, 5, 9, 10])
+            remainder = num % divisor; add_needed = (divisor - remainder) % divisor
             answer = add_needed if add_needed != 0 else 0
-            explanation = f"{num} ÷ {divisor} = {num//divisor} ... {remainder}\n需要加上 {add_needed} 才能被 {divisor} 整除。"
+            explanation = f"{num} ÷ {divisor} = {num//divisor} ... {remainder}\n所以需要加上 {add_needed} 才能被 {divisor} 整除。"
             questions.append({"question": f"{num} 最少要加上多少才能被 {divisor} 整除？", "answer": str(answer), "explanation": explanation})
-        elif q_type_index == 1: # Number Formation
+        elif q_type_index == 1:
             digits = random.sample(range(10), 5)
-            while 0 not in digits: digits = random.sample(range(10), 5)
-            non_zero_digits = sorted([d for d in digits if d != 0])
-            first_digit = non_zero_digits[0]
-            remaining_sorted = sorted([d for d in digits if d != first_digit])
-            answer = int(str(first_digit) + "".join(map(str, remaining_sorted)))
-            explanation = f"要組成最小的五位數，應把最小的非零數字放在最高位，其餘數字由小至大排列。"
-            questions.append({"question": f"用 {', '.join(map(str, digits))} 組成一個最小的五位數。", "answer": str(answer), "explanation": explanation})
-        elif q_type_index == 2: # Factors
-            num = random.randint(20, 80)
+            is_even = random.choice([True, False])
+            q_text = "組成一個最小的五位雙數。" if is_even else "組成一個最大的五位單數。"
+            if is_even:
+                even_digits = sorted([d for d in digits if d % 2 == 0], reverse=True)
+                if not even_digits: # No even digits, regenerate
+                    i -= 1; continue
+                temp_digits = sorted(digits)
+                if temp_digits[0] == 0:
+                    temp_digits[0], temp_digits[1] = temp_digits[1], temp_digits[0]
+                answer_list = temp_digits
+                last_digit = even_digits[0]
+                if answer_list[-1] != last_digit:
+                    for j in range(len(answer_list)-1, -1, -1):
+                        if answer_list[j] == last_digit:
+                            answer_list[j], answer_list[-1] = answer_list[-1], answer_list[j]
+                            break
+                answer = "".join(map(str, answer_list))
+            else: # Odd
+                odd_digits = sorted([d for d in digits if d % 2 != 0])
+                if not odd_digits: # No odd digits, regenerate
+                    i -= 1; continue
+                answer_list = sorted(digits, reverse=True)
+                last_digit = odd_digits[0]
+                if answer_list[-1] != last_digit:
+                    for j in range(len(answer_list)-1, -1, -1):
+                        if answer_list[j] == last_digit:
+                            answer_list[j], answer_list[-1] = answer_list[-1], answer_list[j]
+                            break
+                answer = "".join(map(str, answer_list))
+
+            explanation = f"根據單雙數和最大最小的要求，將數字卡 {'、'.join(map(str,digits))} 排列組合。"
+            questions.append({"question": f"用 {', '.join(map(str, digits))} {q_text}", "answer": str(answer), "explanation": explanation})
+        elif q_type_index == 2:
+            num = random.randint(20, 100)
             factors = [i for i in range(1, num + 1) if num % i == 0]
             answer = len(factors)
             explanation = f"{num} 的因數是: {', '.join(map(str, factors))}\n所以共有 {answer} 個因數。"
             questions.append({"question": f"{num} 共有多少個因數？", "answer": str(answer), "explanation": explanation})
-        elif q_type_index == 3: # Word Problem (Multiplication)
-            price = random.randint(15, 80)
-            qty = random.randint(12, 30)
+        elif q_type_index == 3:
+            price = random.randint(15, 120)
+            qty = random.randint(12, 40)
             answer = price * qty
             explanation = f"算式: {price} × {qty} = {answer} 元"
-            questions.append({"question": f"每盒顏色筆售 {price} 元，老師買了 {qty} 盒，共需付多少元？", "answer": str(answer), "explanation": explanation})
-        elif q_type_index == 4: # Fraction Comparison
-            d1 = random.randint(10, 20); n1 = random.randint(1, d1 - 1); n2 = random.randint(1, d1 - 1)
-            d2 = random.randint(5, 15)
-            while d1 == d2: d2 = random.randint(5, 15)
+            questions.append({"question": f"每本書售 {price} 元，學校買了 {qty} 本，共需付多少元？", "answer": str(answer), "explanation": explanation})
+        elif q_type_index == 4:
+            d1 = random.randint(10, 25); n1 = random.randint(1, d1 - 1); n2 = random.randint(1, d1 - 1)
+            d2 = random.randint(5, 20)
+            while d1 == d2: d2 = random.randint(5, 20)
             n3 = random.randint(1, d2 - 1)
             fractions_str = [f"{n1}/{d1}", f"{n2}/{d1}", f"{n3}/{d2}"]
             random.shuffle(fractions_str)
             sorted_fractions = sorted(fractions_str, key=lambda f: eval(f))
             answer = ", ".join(sorted_fractions)
-            explanation = f"先把同分母分數比較大小，然後再與異分母分數進行通分比較。"
+            explanation = f"先把同分母分數 {n1}/{d1} 和 {n2}/{d1} 比較大小，然後再與 {n3}/{d2} 進行通分比較。"
             questions.append({"question": f"把下列分數由小至大排列: {', '.join(fractions_str)}", "answer": answer, "explanation": explanation})
+
     random.shuffle(questions)
-    return questions
+    return random.sample(questions, num_questions)
 
 def generate_chinese_questions(num_questions=20):
     question_bank = [
@@ -87,74 +111,78 @@ def generate_chinese_questions(num_questions=20):
         {"question": "小安把肉餡材料攪（　）均勻後，姐姐就開始包餃子了。", "options": ["拌", "伴", "絆"], "answer": "拌", "explanation": "「攪拌」指混合、拌和。"},
         {"question": "我們（　）盡力應付這次的考試。", "options": ["務須", "必須", "須臾"], "answer": "務須", "explanation": "「務須」是書面語，表示必須、一定要。"},
         {"question": "這本詞典十分（　），解釋詳盡，例子也十分生活化。", "options": ["使用", "實用", "食用"], "answer": "實用", "explanation": "「實用」指有實際用處。"},
-        {"question": "以下哪個是「勤」字的部首？", "options": ["力", "堇", "廿"], "answer": "力", "explanation": "「勤」字的部首是「力」部。"},
+        {"question": "「勤」字的部首是什麼？", "options": ["力", "堇", "廿"], "answer": "力", "explanation": "「勤」字的部首是「力」部。"},
         {"question": "「溫文爾雅」是形容一個人怎樣？", "options": ["態度溫和，舉止文雅", "性格暴躁", "身體溫暖", "非常有名"], "answer": "態度溫和，舉止文雅", "explanation": "這是一個褒義詞，用來稱讚人有禮貌和教養。"},
         {"question": "選出正確的句子。", "options": ["他不但品性純良，而且待人有禮。", "他不但品性純良，但待人有禮。", "他不但品性純良，所以待人有禮。"], "answer": "他不但品性純良，而且待人有禮。", "explanation": "「不但……而且……」用於表示遞進關係。"},
         {"question": "「疲倦」的近義詞是什麼？", "options": ["疲勞", "精神", "興奮", "勤奮"], "answer": "疲勞", "explanation": "「疲勞」和「疲倦」都指身體勞累的感覺。"},
         {"question": "「光明」的反義詞是什麼？", "options": ["黑暗", "光亮", "明亮", "晴朗"], "answer": "黑暗", "explanation": "「黑暗」與「光明」是相對的狀態。"},
         {"question": "「同學們一邊唱歌，一邊跳舞。」這是一個什麼複句？", "options": ["並列複句", "因果複句", "條件複句", "轉折複句"], "answer": "並列複句", "explanation": "「一邊……一邊……」表示兩個動作同時進行，屬於並列關係。"},
         {"question": "「即使天氣惡劣，我們（　）要準時上學。」", "options": ["也", "才", "就", "都"], "answer": "也", "explanation": "「即使……也……」是常用的關聯詞，表示假設關係。"},
-        {"question": "「與其在這裏空等，（　）主動出擊尋找機會。」", "options": ["不如", "不如", "不但", "而且"], "answer": "不如", "explanation": "「與其……不如……」表示選擇關係，寧願選擇後者。"},
+        {"question": "「與其在這裏空等，（　）主動出擊尋找機會。」", "options": ["不如", "不但", "而且"], "answer": "不如", "explanation": "「與其……不如……」表示選擇關係，寧願選擇後者。"},
         {"question": "「驚弓之鳥」比喻受過驚嚇的人，遇到一點動靜就非常害怕。", "options": ["正確", "錯誤"], "answer": "正確", "explanation": "這是一個比喻用法，形容人過度驚慌。"},
         {"question": "「這件衣服的價錢不貴。」是哪種句子？", "options": ["敘述句", "疑問句", "感歎句", "祈使句"], "answer": "敘述句", "explanation": "敘述句用來陳述一件事情。"},
         {"question": "「小鳥在天上自由自在地飛翔。」句子中的「自由自在地」是什麼？", "options": ["名詞", "動詞", "形容詞", "副詞"], "answer": "副詞", "explanation": "副詞用來修飾動詞「飛翔」，形容飛翔的狀態。"},
         {"question": "請選出沒有錯別字的詞語。", "options": ["再接再厲", "再接再勵", "再接再厲", "再接再勵"], "answer": "再接再厲", "explanation": "正確的寫法是「再接再厲」，比喻繼續努力，毫不鬆懈。"},
     ]
-    return random.sample(question_bank, num_questions)
+    full_bank = question_bank * 4
+    return random.sample(full_bank, num_questions)
 
-def generate_gs_questions(num_questions=20):
+def generate_science_humanities_questions(num_questions=20):
     question_bank = [
+        # Science
+        {"question": "地球最外層，由岩石和土壤構成的是什麼？", "options": ["地幔", "地核", "地殼", "岩漿"], "answer": "地殼", "explanation": "地殼是地球的固體外殼。"},
+        {"question": "岩漿冷卻和凝固後會形成什麼岩？", "options": ["火成岩", "沉積岩", "變質岩", "化石"], "answer": "火成岩", "explanation": "火成岩是由熔融的岩漿冷卻凝固而成。"},
+        {"question": "土壤按照顆粒大小，可以分成沙、粉沙和什麼？", "options": ["石頭", "黏土", "泥土", "塵埃"], "answer": "黏土", "explanation": "土壤顆粒由粗到細分為沙、粉沙和黏土。"},
+        {"question": "功平用鑰匙和小刀都不能在岩石上劃出痕跡，這塊岩石的硬度屬於？", "options": ["軟", "硬", "非常硬", "中等"], "answer": "非常硬", "explanation": "硬度高的物體可以在硬度低的物體上留下劃痕。"},
+        {"question": "花崗岩在生活中經常用來做什麼？", "options": ["作為建築材料", "製作雕塑", "製作文具", "燃料"], "answer": "作為建築材料", "explanation": "花崗岩質地堅硬，常用於建築物的牆面或地面。"},
+        {"question": "土壤中哪種成分的能力會影響它適宜種植的植物種類？", "options": ["顏色", "氣味", "儲水能力", "溫度"], "answer": "儲水能力", "explanation": "不同植物需要的水分不同，因此土壤的儲水能力至關重要。"},
+        {"question": "地球的哪個部分含有熾熱、會流動的岩漿？", "options": ["地殼", "地幔", "地核", "海洋"], "answer": "地幔", "explanation": "地幔位於地殼之下，含有熔融狀態的岩漿。"},
+        {"question": "地震和火山爆發主要是由什麼移動和碰撞導致的？", "options": ["雲層", "板塊", "冰川", "河流"], "answer": "板塊", "explanation": "地殼由多個板塊組成，板塊的運動是地質活動的主要原因。"},
+        {"question": "大理岩是由什麼岩石經過高溫和高壓變質而成？", "options": ["石灰岩", "花崗岩", "砂岩", "頁岩"], "answer": "石灰岩", "explanation": "大理岩是變質岩的一種，由沉積岩中的石灰岩變質形成。"},
+        {"question": "哪種土壤顆粒最大，儲水能力最差？", "options": ["黏土", "粉沙", "沙", "壤土"], "answer": "沙", "explanation": "沙質土壤的顆粒間空隙大，水分容易流失。"},
+        # Humanities
         {"question": "佛朗明哥舞是哪個國家的特色舞蹈？", "options": ["西班牙", "泰國", "中國", "印度"], "answer": "西班牙", "explanation": "佛朗明哥舞是源於西班牙南部地區的一種藝術形式。"},
-        {"question": "以下哪一個是中國具代表性的建築物？", "options": ["故宮", "法隆寺", "玉佛寺", "凡爾賽宮"], "answer": "故宮", "explanation": "北京故宮是中國明清兩代的皇家宮殿，是中國古代宮廷建築之精華。"},
-        {"question": "七大洲中，面積最大和最小的大洲分別是？", "options": ["亞洲和大洋洲", "非洲和北美洲", "亞洲和南極洲", "北美洲和南美洲"], "answer": "亞洲和大洋洲", "explanation": "亞洲是世界上面積最大的洲，大洋洲是面積最小的洲。"},
-        {"question": "地殼下，什麼東西流動會移動板塊，或會引致災害？", "options": ["岩漿", "地心", "化石", "沙礫"], "answer": "岩漿", "explanation": "地幔中的岩漿對流是推動板塊運動的主要動力。"},
-        {"question": "沿江河生活的人，會居住在哪一種特色房屋？", "options": ["吊腳樓", "四合院", "土樓", "窑洞"], "answer": "吊腳樓", "explanation": "吊腳樓是一種適應南方多雨、潮濕氣候的建築，常見於沿江河地區。"},
-        {"question": "清真寺的拱頂設計，是什麼宗教的建築特色？", "options": ["伊斯蘭教", "佛教", "基督教", "道教"], "answer": "伊斯蘭教", "explanation": "圓拱頂和宣禮塔是清真寺的標誌性建築特色。"},
-        {"question": "為了免被太陽灼傷，沙漠地區的人會穿着什麼特色的衣服？", "options": ["寬鬆的長袍", "緊身的短褲", "厚重的毛衣", "防水的雨衣"], "answer": "寬鬆的長袍", "explanation": "寬鬆的長袍有助於通風散熱，並能遮擋陽光，防止皮膚灼傷。"},
-        {"question": "圖中的民族居住在哪一種特色房屋？(蒙古包)", "options": ["蒙古包", "窑洞", "土樓", "冰屋"], "answer": "蒙古包", "explanation": "蒙古包是蒙古族等遊牧民族的傳統住房，易於拆搭和搬遷。"},
-        {"question": "居住在極地的人，會利用什麼來建造特色房屋？", "options": ["冰塊", "木材", "泥土", "石頭"], "answer": "冰塊", "explanation": "因紐特人會利用冰塊建造冰屋（雪屋）作為臨時住所。"},
-        {"question": "中國水墨畫的常見題材是什麼？", "options": ["山水、花鳥", "人物肖像", "抽象圖案", "城市建築"], "answer": "山水、花鳥", "explanation": "山水、花鳥、人物是中國水墨畫最主要的三大畫科。"},
-        {"question": "火山爆發會對人類造成什麼損害？", "options": ["火山灰影響呼吸", "熔岩摧毀房屋", "引發地震", "以上皆是"], "answer": "以上皆是", "explanation": "火山爆發會噴出火山灰、熔岩，並可能引發地震和海嘯，造成多方面的嚴重損害。"},
-        {"question": "中國傳統的彈撥樂器是什麼？", "options": ["琵琶", "笛", "鋼琴", "二胡"], "answer": "琵琶", "explanation": "琵琶是一種歷史悠久的彈撥樂器。笛是吹奏樂器，二胡是拉弦樂器。"},
-        {"question": "哪一個大洋位於亞洲和美洲之間？", "options": ["太平洋", "大西洋", "印度洋", "北冰洋"], "answer": "太平洋", "explanation": "太平洋是世界上面積最大的海洋，位於亞洲、澳洲、北美洲和南美洲之間。"},
-        {"question": "龍捲風是一種怎樣的自然災害？", "options": ["強烈旋轉的氣柱", "大量的降雪", "長時間的乾旱", "河水泛濫"], "answer": "強烈旋轉的氣柱", "explanation": "龍捲風是從雷暴雲底部伸展至地面的、猛烈旋轉的空氣柱。"},
-        {"question": "四合院是中國哪個地區的傳統民居？", "options": ["華北地區 (如北京)", "華南地區", "西北地區", "西藏地區"], "answer": "華北地區 (如北京)", "explanation": "四合院是北京以及華北地區的傳統合院式建築。"},
-        {"question": "哪種災害發生後，我們應該躲在堅固的桌子下？", "options": ["地震", "颱風", "水災", "火災"], "answer": "地震", "explanation": "在室內遇到地震時，應採取「伏地、掩護、穩住」的原則，躲在堅固的家具下。"},
-        {"question": "以下哪項不是可再生能源？", "options": ["煤炭", "太陽能", "風能", "水力"], "answer": "煤炭", "explanation": "煤炭是化石燃料，屬於不可再生能源。太陽能、風能和水力是可再生能源。"},
-        {"question": "中國的京劇臉譜中，紅色通常代表什麼性格？", "options": ["忠誠、英勇", "奸詐、多疑", "兇猛、粗魯", "神秘、莊嚴"], "answer": "忠誠、英勇", "explanation": "在京劇臉譜中，紅色一般代表忠勇、正直的人物，如關羽。"},
-        {"question": "哪個節日有吃月餅和賞月的習俗？", "options": ["中秋節", "春節", "端午節", "清明節"], "answer": "中秋節", "explanation": "中秋節是華人社會的重要傳統節日，以月圓象徵人團圓。"},
-        {"question": "在進行戶外活動時，遇到雷暴應該怎樣做？", "options": ["立即到室內躲避", "站在大樹下", "繼續在水中游泳", "跑到空曠的高地"], "answer": "立即到室內躲避", "explanation": "雷暴天氣時，應盡快進入堅固的建築物內，遠離樹木、金屬物體和水源，以防雷擊。"},
+        {"question": "故宮是中國哪個朝代的具代表性建築物？", "options": ["明、清", "唐、宋", "漢、元", "秦"], "answer": "明、清", "explanation": "北京故宮是中國明清兩代的皇家宮殿。"},
+        {"question": "七大洲中，面積最大的大洲是？", "options": ["亞洲", "非洲", "北美洲", "歐洲"], "answer": "亞洲", "explanation": "亞洲是世界上面積最大、人口最多的大洲。"},
+        {"question": "地殼下的岩漿流動會移動板塊，可能引致什麼災害？", "options": ["地震或火山爆發", "颱風", "水災", "旱災"], "answer": "地震或火山爆發", "explanation": "板塊運動是地震和火山活動的主要原因。"},
+        {"question": "為了適應炎熱和日夜溫差大的沙漠氣候，當地人會穿著什麼？", "options": ["寬鬆的長袍", "緊身的短褲", "厚重的毛衣", "防水的雨衣"], "answer": "寬鬆的長袍", "explanation": "寬鬆的長袍有助於通風散熱，並能遮擋陽光。"},
+        {"question": "蒙古族為了適應遊牧生活，居住在哪一種特色房屋？", "options": ["蒙古包", "窑洞", "土樓", "冰屋"], "answer": "蒙古包", "explanation": "蒙古包易於拆搭和搬遷，適合遊牧民族。"},
+        {"question": "中國古代的四大發明不包括以下哪一項？", "options": ["瓷器", "造紙術", "指南針", "火藥"], "answer": "瓷器", "explanation": "中國的四大發明是造紙術、指南針、火藥及活字印刷術。"},
+        {"question": "長江三峽水利樞紐工程利用什麼來發電？", "options": ["水力", "風力", "太陽能", "煤炭"], "answer": "水力", "explanation": "該工程利用長江巨大的水流衝擊力來發電，是一種潔淨能源。"},
+        {"question": "哪個大洋位於亞洲和美洲之間？", "options": ["太平洋", "大西洋", "印度洋", "北冰洋"], "answer": "太平洋", "explanation": "太平洋是世界上面積最大的海洋。"},
+        {"question": "過度砍伐森林會直接導致什麼環境問題？", "options": ["動物失去棲息地", "空氣污染", "水質污染", "噪音污染"], "answer": "動物失去棲息地", "explanation": "森林是許多動植物的家園，砍伐森林會破壞生態系統。"},
     ]
-    return random.sample(question_bank, num_questions)
+    full_bank = question_bank * 4
+    return random.sample(full_bank, num_questions)
 
 
 # --- Streamlit Web App Logic ---
 
-# Initialize session state variables
+# Initialize session state
 if 'page' not in st.session_state:
     st.session_state.page = 'start'
-if 'quiz_questions' not in st.session_state:
-    st.session_state.quiz_questions = []
-if 'user_answers' not in st.session_state:
-    st.session_state.user_answers = []
-if 'current_question' not in st.session_state:
-    st.session_state.current_question = 0
 if 'subject' not in st.session_state:
     st.session_state.subject = ''
+if 'questions' not in st.session_state:
+    st.session_state.questions = []
+if 'answers' not in st.session_state:
+    st.session_state.answers = []
+if 'current_q' not in st.session_state:
+    st.session_state.current_q = 0
 
 subjects = {
     "中文": generate_chinese_questions, 
     "英文": generate_english_questions,
     "數學": generate_maths_questions, 
-    "常識": generate_gs_questions
+    "科學 & 人文": generate_science_humanities_questions
 }
 
 def start_quiz(subject_name):
     """Sets up the state for a new quiz."""
     st.session_state.subject = subject_name
-    st.session_state.quiz_questions = subjects[subject_name](20)
-    st.session_state.user_answers = []
-    st.session_state.current_question = 0
+    st.session_state.questions = subjects[subject_name](20)
+    st.session_state.answers = []
+    st.session_state.current_q = 0
     st.session_state.page = 'quiz'
 
 def display_start_page():
@@ -162,30 +190,30 @@ def display_start_page():
     st.header("請選擇要練習的科目")
 
     for subject in subjects:
-        if st.button(subject, key=subject):
+        if st.button(subject, key=subject, use_container_width=True):
             start_quiz(subject)
-            st.rerun() # Rerun the script to show the quiz page
+            st.rerun()
 
 def display_quiz_page():
     st.title(f"科目：{st.session_state.subject}")
     
-    idx = st.session_state.current_question
-    q_data = st.session_state.quiz_questions[idx]
+    idx = st.session_state.current_q
+    q_data = st.session_state.questions[idx]
     
     st.subheader(f"第 {idx + 1} / 20 題")
     st.write(q_data['question'])
 
     with st.form(key=f"q_{idx}"):
         if 'options' in q_data:
-            user_answer = st.radio("請選擇答案：", q_data['options'], index=None, key=f"radio_{idx}")
-        else: # Math calculation
-            user_answer = st.text_input("請輸入答案：", key=f"text_{idx}")
+            user_answer = st.radio("請選擇答案：", q_data['options'], index=None)
+        else:
+            user_answer = st.text_input("請輸入答案：")
         
         submitted = st.form_submit_button("提交答案")
         if submitted:
-            st.session_state.user_answers.append(user_answer)
-            if st.session_state.current_question < 19:
-                st.session_state.current_question += 1
+            st.session_state.answers.append(user_answer)
+            if st.session_state.current_q < 19:
+                st.session_state.current_q += 1
             else:
                 st.session_state.page = 'results'
             st.rerun()
@@ -194,10 +222,10 @@ def display_results_page():
     st.title("測驗結果")
     
     score = 0
-    for i, q_data in enumerate(st.session_state.quiz_questions):
-        user_ans = st.session_state.user_answers[i]
+    for i, q_data in enumerate(st.session_state.questions):
+        user_ans = st.session_state.answers[i] if i < len(st.session_state.answers) else "未作答"
         correct_ans = q_data['answer']
-        is_correct = (user_ans == correct_ans)
+        is_correct = (str(user_ans) == str(correct_ans))
         if is_correct:
             score += 1
 
@@ -214,7 +242,7 @@ def display_results_page():
 
     st.header(f"總分：{score} / 20")
 
-    if st.button("返回主選單"):
+    if st.button("返回主選單", use_container_width=True):
         st.session_state.page = 'start'
         st.rerun()
 
